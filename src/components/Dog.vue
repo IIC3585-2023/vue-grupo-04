@@ -15,7 +15,7 @@
  
 <script>
     export default {
-    props: ['data']
+        props: ['data']
     }
 </script>
 
@@ -23,8 +23,7 @@
     .dog-name{
         justify-self: auto;
         background-color: rgb(56 189 248);
-        border-top-left-radius: 0.5rem; /* 4px */
-        border-top-right-radius: 0.5rem; /* 4px */
+
         padding: 3px 3px;
     }
     .dog-description{

@@ -6,7 +6,7 @@
 <template>
     <div class="dogs-container">
         <div class="dog-container" v-for="item in listItems">
-          <DogImage :data="pic"></DogImage>
+          <DogImage :name="item.attributes"></DogImage>
           <Dog :data="item.attributes"></Dog>
         </div>
     </div>
