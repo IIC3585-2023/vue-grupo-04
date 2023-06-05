@@ -1,22 +1,12 @@
 <template>
   <nav class="topnav">
-    <h1>Miku Dogs</h1>
+    <h1>Miku's Dogs</h1>
     <a class="active" href="Home">Home</a>
     <a href="Contact">Contact</a>
     <a href="About">About</a>
-    <input type="text" placeholder="Search.." v-model="search" />
+    <input type="text" placeholder="Search.." />
   </nav>
 </template>
-
-<script>
-import { ref } from "vue";
-export default {
-  setup() {
-    const search = ref("");
-    return { search };
-  },
-};
-</script>
 
 <style scoped>
 .topnav {
