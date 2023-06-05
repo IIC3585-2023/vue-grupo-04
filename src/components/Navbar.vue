@@ -1,9 +1,9 @@
 <template>
   <nav class="topnav">
     <h1>Miku's Dogs</h1>
-    <a class="active" href="Home">Home</a>
-    <a href="Contact">Contact</a>
-    <a href="About">About</a>
+    <a class="active" href="/">Home</a>
+    <a href="/random">Random</a>
+    <a href="/helloworld">HelloWorld</a>
   </nav>
 </template>
 

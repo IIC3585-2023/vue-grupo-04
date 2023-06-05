@@ -1,13 +1,12 @@
 <script setup>
 import Navbar from './components/Navbar.vue'
-import Dogs from './components/Dogs.vue'
+import Home from './components/Home.vue'
 </script>
 
 <template>
   <div class="main-page">
     <Navbar></Navbar>
-
-    <Dogs></Dogs>
+    <RouterView />
   </div>
 </template>
 
