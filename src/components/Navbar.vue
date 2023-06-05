@@ -1,46 +1,59 @@
 <template>
-  <div class="topnav">
+  <nav class="topnav">
+    <h1>Miku Dogs</h1>
     <a class="active" href="Home">Home</a>
     <a href="Contact">Contact</a>
     <a href="About">About</a>
-  </div>
+    <input type="text" placeholder="Search.." v-model="search" />
+  </nav>
 </template>
 
+<script>
+import { ref } from "vue";
+export default {
+  setup() {
+    const search = ref("");
+    return { search };
+  },
+};
+</script>
 
 <style scoped>
-  .topnav {
-    background-color: #333;
-    overflow: hidden;
-    width: 100vw;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
+.topnav {
+  width: 100%;
+  background-color: #333;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
-  /* Style the links inside the navigation bar */
-  .topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
-  /* Change the color of links on hover */
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
 
-  /* Add a color to the active/current link */
-  .topnav a.active {
-    background-color: rgb(2 132 199);
-    color: white;
-  }
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: rgb(2 132 199);
+  color: white;
+}
 
-  /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
+  .topnav a:not(:first-child) {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -49,7 +62,9 @@
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive a.icon {
     position: absolute;
     right: 0;
