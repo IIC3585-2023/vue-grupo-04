@@ -16,7 +16,7 @@ export default {
 
   methods: {
     async getData() {
-      if (!this.breeds.hasOwnProperty(this.data["name"])) {
+      if (!this.breeds.hasOwnProperty(this.data["name"]) || this.breeds[this.data["name"]] === "") {
         this.pic =
           "https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg";
         return;

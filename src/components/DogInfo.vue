@@ -11,9 +11,20 @@
       <div class="dog-description">
         {{ data.description }}
       </div>
-      <div class="dog-male-weight">Male weight: {{ data.male_weight }}</div>
+      <div class="dog-male-weight">Male weight:
+        <span class="number-weight">{{ data.male_weight.min }}</span>
+        -
+        <span class="number-weight">{{ data.male_weight.max }}</span>
+
+        lbs
+        
+      </div>
       <div class="dog-female-weight">
-        Female weight: {{ data.female_weight }}
+        Female weight:
+        <span class="number-weight">{{ data.female_weight.min }}</span>
+        -
+        <span class="number-weight">{{ data.female_weight.max }}</span>
+        lbs
       </div>
     </div>
   </div>
@@ -49,6 +60,7 @@ export default {
 .dog-description {
   text-align: justify;
   padding: 4px 4px;
+  margin: 0 10px;
 }
 .dog-male-weight {
   padding: 4px 4px;
@@ -56,6 +68,12 @@ export default {
 .dog-female-weight {
   padding: 4px 4px;
   padding-bottom: 1rem;
+}
+
+.number-weight {
+  font-weight: bold;
+  background-color: #444;
+  padding: 0 4px;
 }
 .dog-info {
   display: flex;
