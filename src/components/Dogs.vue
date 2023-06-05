@@ -11,7 +11,7 @@ import DogImage from "./DogImage.vue";
   </div>
   <div class="dogs-container">
     <div class="dog-container" v-for="item in listItems">
-      <DogImage :name="item.attributes"></DogImage>
+      <DogImage :data="item.attributes"></DogImage>
       <DogInfo :data="item.attributes"></DogInfo>
     </div>
   </div>
@@ -28,7 +28,7 @@ export default {
       pic: String,
       listItems: [],
       currentPage: 1,
-      totalPages: 0,
+      totalPages: 29,
     };
   },
   methods: {
@@ -90,11 +90,9 @@ export default {
 .dog-container {
   /* Add shadows to create the "card" effect */
   display: flex;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: 0.3s;
   width: 20rem;
-  border-color: rgb(30 64 175);
-  border-width: 4px;
   flex-direction: column;
   margin: 1.5rem; /* 20px */
   border-radius: 0.5rem;

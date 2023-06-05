@@ -44,6 +44,7 @@ export default {
   width: 100%;
   padding: 3px 0;
   cursor: pointer;
+  transition: all 0.5s ease-in-out;
 }
 .dog-description {
   text-align: justify;
@@ -64,5 +65,9 @@ export default {
   width: 100%;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
+}
+
+.dog-name:hover {
+  filter: brightness(1.2);
 }
 </style>
