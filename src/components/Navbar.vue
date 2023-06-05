@@ -4,7 +4,6 @@
     <a class="active" href="Home">Home</a>
     <a href="Contact">Contact</a>
     <a href="About">About</a>
-    <input type="text" placeholder="Search.." />
   </nav>
 </template>
 
