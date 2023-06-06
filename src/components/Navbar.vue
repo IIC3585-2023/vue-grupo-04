@@ -15,11 +15,17 @@
         >Random</a
       >
       <a
+        :class="{ active: activeLink === '/dogceo' }"
+        @click="setActiveLink('/dogceo')"
+        href="/dogceo"
+        >DogCeo</a
+      >
+      <!-- <a
         :class="{ active: activeLink === '/helloworld' }"
         @click="setActiveLink('/helloworld')"
         href="/helloworld"
         >HelloWorld</a
-      >
+      > -->
     </div>
   </nav>
 </template>

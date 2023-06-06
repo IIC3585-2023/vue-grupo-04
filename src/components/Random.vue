@@ -19,7 +19,7 @@ import LoadingSpin from "./LoadingSpin.vue";
       <button class="button-random" @click="getRandomFact">
         Get Random Fact
       </button>
-      <LoadingSpin v-if="fact === ''" />
+      <LoadingSpin v-if="fact === ''" style="margin: 1rem 0"/>
       {{ fact }}
       <div class="text-container">
         <span class="console-text"> dogapi.dog </span>
@@ -100,6 +100,7 @@ export default {
   width: 20rem;
   min-height: 20rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  background-color: #1b1b1b;
   padding: 1rem;
   margin: 1rem;
 }
@@ -116,7 +117,7 @@ main {
 .console-text {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.8rem;
-  background-color: #1b1b1b;
+  background-color: #444;
   padding: 0.3rem 0.5rem;
   margin: 0.5rem 0;
   margin-right: 0.5rem;
