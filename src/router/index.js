@@ -4,19 +4,20 @@ import HelloWorld from "../components/HelloWorld.vue";
 import Random from "../components/Random.vue";
 import DogCeo from "../components/DogCeo.vue";
 
+
 const routes = [
   {
-    path: "/",
+    path: `${import.meta.env.VITE_BASE_URL}/`,
     name: "Home",
     component: Home,
   },
   {
-    path: "/random",
+    path: `${import.meta.env.VITE_BASE_URL}/random`,
     name: "Random",
     component: Random,
   },
   {
-    path: "/dogceo",
+    path: `${import.meta.env.VITE_BASE_URL}/dogceo`,
     name: "DogCeo",
     component: DogCeo,
   },

@@ -1,23 +1,27 @@
+<script setup>
+  const base_url = import.meta.env.VITE_BASE_URL;
+</script>
+
 <template>
   <nav class="topnav">
     <h1><span style="color: rgb(49, 166, 216)"> Miku</span>'s Dogs</h1>
     <div class="links-container">
       <a
-        :class="{ active: activeLink === '/' }"
-        @click="setActiveLink('/')"
-        href="/"
+        :class="{ active: activeLink === `${base_url}/` }"
+        @click="setActiveLink(`${base_url}/`)"
+        href="./"
         >Home</a
       >
       <a
-        :class="{ active: activeLink === '/random' }"
-        @click="setActiveLink('/random')"
-        href="/random"
+        :class="{ active: activeLink === `${base_url}/random` }"
+        @click="setActiveLink(`${base_url}/random`)"
+        href="./random"
         >Random</a
       >
       <a
-        :class="{ active: activeLink === '/dogceo' }"
-        @click="setActiveLink('/dogceo')"
-        href="/dogceo"
+        :class="{ active: activeLink === `${base_url}/dogceo` }"
+        @click="setActiveLink(`${base_url}/dogceo`)"
+        href="./dogceo"
         >DogCeo</a
       >
       <!-- <a
