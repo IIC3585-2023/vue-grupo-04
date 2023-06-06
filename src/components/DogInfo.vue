@@ -11,20 +11,20 @@
       <div class="dog-description">
         {{ data.description }}
       </div>
-      <div class="dog-male-weight">Male weight:
+      <div class="dog-male-weight">
+        Male weight:
         <span class="number-weight">{{ data.male_weight.min }}</span>
         -
         <span class="number-weight">{{ data.male_weight.max }}</span>
 
-        lbs
-        
+        kg
       </div>
       <div class="dog-female-weight">
         Female weight:
         <span class="number-weight">{{ data.female_weight.min }}</span>
         -
         <span class="number-weight">{{ data.female_weight.max }}</span>
-        lbs
+        kg
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@ export default {
   methods: {
     toggleDogInfo() {
       this.showDogInfo = !this.showDogInfo;
-      this.dogInfoHeight = this.showDogInfo ? "400px" : "0px";
+      this.dogInfoHeight = this.showDogInfo ? "450px" : "0px";
     },
   },
 };
