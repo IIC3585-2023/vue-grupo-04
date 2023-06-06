@@ -226,8 +226,10 @@ export default {
 .filter-group {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 }
 .search-button {
   border-top-left-radius: 0;
