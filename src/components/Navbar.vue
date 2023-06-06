@@ -1,11 +1,44 @@
 <template>
   <nav class="topnav">
     <h1>Miku's Dogs</h1>
-    <a class="active" href="/">Home</a>
-    <a href="/random">Random</a>
-    <a href="/helloworld">HelloWorld</a>
+    <a
+      :class="{ active: activeLink === '/' }"
+      @click="setActiveLink('/')"
+      href="/"
+      >Home</a
+    >
+    <a
+      :class="{ active: activeLink === '/random' }"
+      @click="setActiveLink('/random')"
+      href="/random"
+      >Random</a
+    >
+    <a
+      :class="{ active: activeLink === '/helloworld' }"
+      @click="setActiveLink('/helloworld')"
+      href="/helloworld"
+      >HelloWorld</a
+    >
   </nav>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      activeLink: "home",
+    };
+  },
+  methods: {
+    setActiveLink(link) {
+      this.activeLink = link;
+    },
+  },
+  mounted() {
+    this.activeLink = window.location.pathname;
+  },
+};
+</script>
 
 <style scoped>
 .topnav {
