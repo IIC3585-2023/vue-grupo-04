@@ -34,18 +34,17 @@ export default {
     return {
       pic: "",
       fact: "",
-      nameDog: String,
+      nameDog: "",
     };
   },
   methods: {
     async getRandomImage() {
       // https://dog.ceo/api/breeds/image/random
-      this.pic = "";
+      this.pic = ""; this.nameDog = "";
       const res = await fetch(`https://dog.ceo/api/breeds/image/random`);
       const finalRes = await res.json();
       this.pic = finalRes["message"];
 
-      // get the name of the dog
       let name = this.pic.split("/")[4];
       this.nameDog = name
         .split("-")

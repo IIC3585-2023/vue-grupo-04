@@ -1,6 +1,6 @@
 <template>
   <nav class="topnav">
-    <h1>Miku's Dogs</h1>
+    <h1><span style="color: rgb(49, 166, 216)"> Miku</span>'s Dogs</h1>
     <a
       :class="{ active: activeLink === '/' }"
       @click="setActiveLink('/')"
