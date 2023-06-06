@@ -1,6 +1,7 @@
 <script setup>
 import DogInfo from "./DogInfo.vue";
 import DogImage from "./DogImage.vue";
+import LoadingSpin from "./LoadingSpin.vue";
 </script>
 
 <template>
@@ -10,31 +11,50 @@ import DogImage from "./DogImage.vue";
       placeholder="Search by Name of Breed..."
       class="search-input"
       v-model="filter"
-      @keyup.enter="getData"
+      @keyup="filterByName"
     />
-    <button class="search-button" @click="getData">Search</button>
   </div>
 
   <!-- filter by attributes.male_weight -->
   <div class="filter-group" v-if="filter === ''">
-    <span>Group</span>
-    <select v-model="group" @change="getData">
-      <option v-for="(value, key) in groups" :value="key">{{ value }}</option>
-    </select>
+    <div>
+      <span>Group</span>
+      <select v-model="group" @change="runFilters">
+        <option v-for="(value, key) in groups" :value="key">{{ value }}</option>
+      </select>
+    </div>
+    <div>
+      <span>Weight</span>
+      <select v-model="weightCategory" @change="runFilters">
+        <option v-for="(value, key) in weightCategories" :value="key">
+          {{ value }}
+        </option>
+      </select>
+    </div>
   </div>
 
-  <div class="pagination" v-if="filter === ''">
+  <div class="pagination" v-if="!loadingData">
     <button v-if="currentPage > 1" @click="prevPage">Prev</button>
-    <span class="pages-span">Page {{ currentPage }} of {{ totalPages }}</span>
+    <span class="pages-span" v-if="totalPages > 0"
+      >Page {{ currentPage }} of {{ totalPages }}</span
+    >
     <button v-if="currentPage < totalPages" @click="nextPage">Next</button>
   </div>
 
   <div class="dogs-container">
-    <div class="dog-container" v-for="item in listItems">
+    <div class="loader-container">
+      <LoadingSpin v-if="loadingData" />
+    </div>
+    <div
+      v-if="!loadingData"
+      class="dog-container"
+      v-for="item in pageListItems"
+    >
       <DogImage :data="item.attributes"></DogImage>
       <DogInfo :data="item.attributes"></DogInfo>
     </div>
   </div>
+
   <!-- <textarea v-model="allBreeds"></textarea> -->
 </template>
 
@@ -49,10 +69,14 @@ export default {
   data() {
     return {
       pic: String,
+      savedListItems: [],
       listItems: [],
+      pageListItems: [],
       currentPage: 1,
-      totalPages: 29,
+      totalPages: 1,
+      itemsPerPage: 9,
       breedsIds: breedsIds,
+      loadingData: true,
       filter: "",
       group: "",
       groups: {
@@ -67,11 +91,60 @@ export default {
         "56081cf0-fdf2-4114-9bf7-23a3f5b6af91": "Working Group",
         "d4b72541-a1c6-46d7-b13c-709e148c7884": "Miscellaneous Class",
       },
+      weightCategory: 0,
+      weightCategories: {
+        0: "All",
+        1: "Small dog (10kg or less)",
+        2: "Medium dog (11kg -  25kg)",
+        3: "Big dog (26kg or more)",
+      },
+      weightCategoriesWeights: {
+        0: [0, Number.POSITIVE_INFINITY],
+        1: [0, 10],
+        2: [11, 25],
+        3: [26, Number.POSITIVE_INFINITY],
+      },
       // allBreeds: "",
     };
   },
   methods: {
-    async getData(page = 1) {
+    setPageItems() {
+      this.pageListItems = this.listItems.slice(
+        (this.currentPage - 1) * this.itemsPerPage,
+        this.itemsPerPage * this.currentPage
+      );
+    },
+    async getData() {
+      const promises = [...Array(29).keys()].map(async (page) => {
+        const res = await fetch(
+          `https://dogapi.dog/api/v2/breeds?page[number]=${page + 1}`
+        );
+        const finalRes = await res.json();
+        return finalRes.data;
+      });
+
+      const results = await Promise.all(promises);
+      this.listItems = results.flat();
+      this.setPageItems();
+      this.totalPages = Math.ceil(this.listItems.length / this.itemsPerPage);
+      this.savedListItems = this.listItems.slice();
+      // this.allBreeds += this.listItems.map((item) => `"${item.id}": "${item.attributes.name}"\n`);
+    },
+
+    async filterByName() {
+      this.loadingData = true;
+      this.currentPage = 1;
+      const term = this.filter.toLowerCase();
+      this.listItems = this.savedListItems.filter((dog) =>
+        dog.attributes.name.toLowerCase().includes(term)
+      );
+      this.totalPages = Math.ceil(this.listItems.length / this.itemsPerPage);
+      this.setPageItems();
+      this.loadingData = false;
+    },
+
+    async filterByGroup() {
+      this.currentPage = 1;
       if (this.group !== "") {
         const res = await fetch(
           `https://dogapi.dog/api/v2/groups/${this.group}`
@@ -79,70 +152,86 @@ export default {
         const finalRes = await res.json();
         this.listItems = [];
 
-        finalRes.data.relationships.breeds.data.map(async (dog) => {
-          const res = await fetch(`https://dogapi.dog/api/v2/breeds/${dog.id}`);
-          const finalRes = await res.json();
-          this.listItems = [...this.listItems, finalRes.data];
-        });
-        return;
-      }
-      if (this.filter !== "") {
-        let arrayIdDogs = [];
-        this.listItems = [];
-
-        Object.values(breedsIds).map((name) => {
-          if (name.toLowerCase().includes(this.filter.toLowerCase())) {
-            arrayIdDogs = [
-              ...arrayIdDogs,
-              ...Object.keys(breedsIds).filter(
-                (key) => breedsIds[key] === name
-              ),
-            ];
+        const promises = finalRes.data.relationships.breeds.data.map(
+          async (dog) => {
+            const res = await fetch(
+              `https://dogapi.dog/api/v2/breeds/${dog.id}`
+            );
+            const finalRes = await res.json();
+            return finalRes.data;
           }
-        });
-        arrayIdDogs.map(async (dogId) => {
-          const res = await fetch(`https://dogapi.dog/api/v2/breeds/${dogId}`);
-          const finalRes = await res.json();
-          this.listItems = [...this.listItems, finalRes.data];
-        });
-
+        );
+        const results = await Promise.all(promises);
+        this.listItems = results.flat();
+        this.totalPages = Math.ceil(this.listItems.length / this.itemsPerPage);
+        this.setPageItems();
+        this.savedListItems = this.listItems.slice();
         return;
       }
-      const res = await fetch(
-        `https://dogapi.dog/api/v2/breeds?page[number]=${page}`
-      );
-      const finalRes = await res.json();
-      this.listItems = finalRes.data;
-      this.totalPages = 29;
-      // this.allBreeds += this.listItems.map((item) => `"${item.id}": "${item.attributes.name}"\n`);
+      await this.getData();
+    },
+    async filterByWeight() {
+      if (this.weightCategory !== 0) {
+        this.currentPage = 1;
+        this.listItems = this.listItems.filter((item) => {
+          const maleAverage =
+            (item.attributes.male_weight.max +
+              item.attributes.male_weight.min) /
+            2;
+          const femaleAverage =
+            (item.attributes.female_weight.max +
+              item.attributes.female_weight.min) /
+            2;
+          const averageInKg = (0.45 * (femaleAverage + maleAverage)) / 2;
+          return (
+            averageInKg >=
+              this.weightCategoriesWeights[this.weightCategory][0] &&
+            averageInKg <= this.weightCategoriesWeights[this.weightCategory][1]
+          );
+        });
+        this.setPageItems();
+        this.totalPages = Math.ceil(this.listItems.length / this.itemsPerPage);
+        this.savedListItems = this.listItems.slice();
+      }
+    },
+
+    async runFilters() {
+      this.loadingData = true;
+      await this.filterByGroup();
+      await this.filterByWeight();
+      this.loadingData = false;
     },
     async nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
-        await this.getData(this.currentPage);
+        this.setPageItems();
       }
     },
     async prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
-        await this.getData(this.currentPage);
+        this.setPageItems();
       }
     },
   },
-  mounted() {
-    this.getData();
+  async mounted() {
+    this.loadingData = true;
+    await this.getData();
+    this.loadingData = false;
   },
 };
 </script>
 
 <style scoped>
-.search-button{
+.filter-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.search-button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-.search-input {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
 }
 .search-container {
   display: flex;
@@ -188,5 +277,12 @@ export default {
 /* On mouse-over, add a deeper shadow */
 .dog-container:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.loader-container {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 </style>

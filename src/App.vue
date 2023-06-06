@@ -1,6 +1,6 @@
 <script setup>
-import Navbar from './components/Navbar.vue'
-import Home from './components/Home.vue'
+import Navbar from "./components/Navbar.vue";
+import Home from "./components/Home.vue";
 </script>
 
 <template>
@@ -11,10 +11,10 @@ import Home from './components/Home.vue'
 </template>
 
 <style scoped>
-  .main-page{
-    width: 100%;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+.main-page {
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
 </style>
