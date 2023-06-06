@@ -1,6 +1,6 @@
 <template>
   <nav class="topnav">
-    <h1>Miku's Dogs</h1>
+    <h1><span style="color: rgb(49, 166, 216)"> Miku</span>'s Dogs</h1>
     <a
       :class="{ active: activeLink === '/' }"
       @click="setActiveLink('/')"
@@ -72,7 +72,7 @@ export default {
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {
     display: none;
   }
@@ -80,10 +80,10 @@ export default {
     float: right;
     display: block;
   }
-}
+} */
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .topnav.responsive {
     position: relative;
   }
@@ -97,5 +97,5 @@ export default {
     display: block;
     text-align: left;
   }
-}
+} */
 </style>
