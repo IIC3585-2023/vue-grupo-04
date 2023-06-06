@@ -31,14 +31,13 @@ export default {
         }
         return;
         }
-      else {
         const res_photos = await fetch(
         `https://dog.ceo/api/breed/${
           this.breeds[this.data["name"]]
         }/images/random/1`
       );
       const finalRes_photos = await res_photos.json();
-      this.pic = finalRes_photos["message"];}
+      this.pic = finalRes_photos["message"];
     },
   },
   mounted() {
