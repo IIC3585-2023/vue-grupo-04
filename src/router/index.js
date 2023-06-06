@@ -8,17 +8,17 @@ const base_url = import.meta.env.VITE_BASE_URL;
 
 const routes = [
   {
-    path: `${base_url}/`,
+    path: `/`,
     name: "Home",
     component: Home,
   },
   {
-    path: `${base_url}/random`,
+    path: `/random`,
     name: "Random",
     component: Random,
   },
   {
-    path: `${base_url}/dogceo`,
+    path: `/dogceo`,
     name: "DogCeo",
     component: DogCeo,
   },
@@ -30,7 +30,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(base_url),
   routes,
 });
 
