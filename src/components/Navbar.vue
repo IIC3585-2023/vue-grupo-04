@@ -1,24 +1,26 @@
 <template>
   <nav class="topnav">
     <h1><span style="color: rgb(49, 166, 216)"> Miku</span>'s Dogs</h1>
-    <a
-      :class="{ active: activeLink === '/' }"
-      @click="setActiveLink('/')"
-      href="/"
-      >Home</a
-    >
-    <a
-      :class="{ active: activeLink === '/random' }"
-      @click="setActiveLink('/random')"
-      href="/random"
-      >Random</a
-    >
-    <a
-      :class="{ active: activeLink === '/helloworld' }"
-      @click="setActiveLink('/helloworld')"
-      href="/helloworld"
-      >HelloWorld</a
-    >
+    <div class="links-container">
+      <a
+        :class="{ active: activeLink === '/' }"
+        @click="setActiveLink('/')"
+        href="/"
+        >Home</a
+      >
+      <a
+        :class="{ active: activeLink === '/random' }"
+        @click="setActiveLink('/random')"
+        href="/random"
+        >Random</a
+      >
+      <a
+        :class="{ active: activeLink === '/helloworld' }"
+        @click="setActiveLink('/helloworld')"
+        href="/helloworld"
+        >HelloWorld</a
+      >
+    </div>
   </nav>
 </template>
 
@@ -45,8 +47,13 @@ export default {
   width: 100%;
   background-color: #333;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.links-container {
+  display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 /* Style the links inside the navigation bar */

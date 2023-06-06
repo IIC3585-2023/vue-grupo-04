@@ -182,7 +182,7 @@ export default {
             (item.attributes.female_weight.max +
               item.attributes.female_weight.min) /
             2;
-          const averageInKg = (0.45 * (femaleAverage + maleAverage)) / 2;
+          const averageInKg = (femaleAverage + maleAverage) / 2;
           return (
             averageInKg >=
               this.weightCategoriesWeights[this.weightCategory][0] &&
