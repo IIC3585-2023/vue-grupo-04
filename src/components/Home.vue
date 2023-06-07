@@ -45,13 +45,11 @@ import LoadingSpin from "./LoadingSpin.vue";
     <div class="loader-container">
       <LoadingSpin v-if="loadingData" />
     </div>
-    <div
-      v-if="!loadingData"
-      class="dog-container"
-      v-for="item in pageListItems"
-    >
-      <DogImage :data="item.attributes"></DogImage>
-      <DogInfo :data="item.attributes"></DogInfo>
+    <div v-if="!loadingData" class="dog-list-container">
+      <div class="dog-container" v-for="item in pageListItems">
+        <DogImage :data="item.attributes"></DogImage>
+        <DogInfo :data="item.attributes"></DogInfo>
+      </div>
     </div>
   </div>
 
@@ -256,11 +254,6 @@ export default {
 }
 
 .dogs-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 }
 
 .dog-container {
@@ -274,6 +267,15 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: #1a1a1a;
+}
+
+.dog-list-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 /* On mouse-over, add a deeper shadow */
